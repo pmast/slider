@@ -26,12 +26,12 @@ class Slider {
     this.minValue = minValue;
   }
 
-  increaseValue() {
-    this.value = Math.min(this.value + 1, this.maxValue);
+  increaseValue(amount = 1) {
+    this.value = Math.min(this.value + amount, this.maxValue);
   }
 
-  decreaseValue() {
-    this.value = Math.max(this.value - 1, this.minValue);
+  decreaseValue(amount = 1) {
+    this.value = Math.max(this.value - amount, this.minValue);
   }
 }
 
@@ -72,12 +72,6 @@ describe('slider', function () {
     assert.equal(slider.maxValue, 10);
   });
 
-  it('should not increase beyond the max value', function () {
-    slider.value = slider.maxValue;
-    slider.increaseValue();
-    assert.equal(slider.value, maxValue);
-  });
-
   it('should be decreaseable', function () {
     let oldValue = 5;
     slider.value = oldValue;
@@ -85,15 +79,29 @@ describe('slider', function () {
     assert.equal(slider.value, oldValue - 1);
   });
 
-  it('should not increase beyond the max value', function () {
-    slider.value = slider.minValue;
-    slider.decreaseValue();
-    assert.equal(slider.value, minValue);
-  });
-
   it('should be increasable by value', function () {
     slider.value = 5;
     slider.increaseValue(5);
     assert.equal(slider.value, 10);
   });
+
+  it('should not increase beyond the max value', function () {
+    slider.value = slider.maxValue;
+    slider.increaseValue(5);
+    assert.equal(slider.value, maxValue);
+  });
+
+  it('should be decreasable by value', function () {
+    slider.value = 5;
+    slider.decreaseValue(5);
+    assert.equal(slider.value, 0);
+  });
+
+  it('should not decrease beyond the max value', function () {
+    slider.value = slider.minValue;
+    slider.decreaseValue(5);
+    assert.equal(slider.value, minValue);
+  });
+
+
 });
