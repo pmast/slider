@@ -9,6 +9,7 @@
 // - should not increase beyond max value
 // - should be decreasable
 // - should not decrease beyond minimum value
+// - should be increasable by spcified value
 
 import assert from 'assert';
 
@@ -88,5 +89,11 @@ describe('slider', function () {
     slider.value = slider.minValue;
     slider.decreaseValue();
     assert.equal(slider.value, minValue);
+  });
+
+  it('should be increasable by value', function () {
+    slider.value = 5;
+    slider.increaseValue(5);
+    assert.equal(slider.value, 10);
   });
 });
